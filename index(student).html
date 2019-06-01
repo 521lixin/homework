@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<title>作业提交系统</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/iconfont.css">
+	<script src="js/jquery.js"></script>
+</head>
+<script type="text/javascript">
+		$(function(){
+			$(".signup-form input").on("focus",function(){
+				$(this).parent().addClass("border");
+			});
+			$(".signup-form input").on("blur",function(){
+				$(this).parent().removeClass("border");
+			})
+			var _boxCon=$(".box-con");
+			$(".move-login").on("click",function(){
+				$(_boxCon).css({
+					'marginLeft':0
+				})
+			});
+			$(".move-signup").on("click",function(){
+				$(_boxCon).css({
+					'marginLeft':-320
+				})
+			});
+			$(".move-other").on("click",function(){
+				$(_boxCon).css({
+					'marginLeft':-640
+				})
+			});
+			$(".move-reset").on("click",function(){
+				$(_boxCon).css({
+					'marginLeft':-960
+				})
+			});
+			$("body").on("click",".move-addinf",function(){
+				$(_boxCon).css({
+					'marginLeft':-1280
+				})
+			});
+
+			//
+			var messageVerify=function (){
+				$(".get-message").on("click",function(){
+					if(_handle){
+						$("#message-inf").fadeIn(100)
+						$(this).html('<a href="javascript:;">下一步</a><img class="loading" src="images/loading.gif">').addClass("move-addinf");
+					}
+				});
+			}();
+		});
+		//表单验证
+		function showNotic(_this){
+			$(_this).parents(".form-group").find(".error-notic").fadeIn(100);
+            $(_this).focus();
+		}//错误提示显示
+		function hideNotic(_this){
+			$(_this).parents(".form-group").find(".error-notic").fadeOut(100);
+		}//错误提示隐藏
+		var verify={
+
+			PasswordLenght:function(_this){
+				var _length=$(_this).val().length;
+				if(_length<6){
+					showNotic(_this)
+				}else{
+            		hideNotic(_this)
+            	}
+			},//验证设置密码长度
+
+		}
+</script>
+<body>
+	<div class="login-nav fix">
+		<ul class="f-r">
+			<li><a href="index.html">首页</a></li>
+			<li><a href="index(student).html">学生</a></li>
+			<li><a href="index(teacher).html">老师</a></li>
+		</ul>
+	</div>
+	<div class="login-banner"></div>
+	<div class="login-box">
+		<div class="box-con tran">
+			<div class="login-con f-l">
+				<form action="login.php" method="post" enctype="multipart/form-data">
+				<div class="form-group">
+					<input type="text" placeholder="学号" name="number"/>
+					<span class="error-notic">用户名/手机号码不正确</span>
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="密码" name="password">
+					<span class="error-notic">密码不正确</span>
+				</div>
+				<div class="form-group">
+					<input type="text" name="vcode" placeholder=" 请输入下方验证码" onBlur="verify.PasswordLenght(this)">
+					<br><br>
+
+					<img class="vcode" src="show_code.php"  onclick="this.src='show_code.php'"/>
+					<span class="error-notic"></span>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="tran pr">
+						<a href="javascript:;" class="tran">登录</a>
+						<img class="loading" src="images/loading.gif" style="display:block">
+					</button>
+				</div>
+				<div class="from-line"></div>
+				<div class="form-group">
+					<a href="javascript:;" class="move-signup a-tag tran blue-border">注册<i class="iconfont tran">&#xe606;</i></a>
+				</div>
+				</form>
+			</div>
+			<!-- 登录 -->
+		<form action="register.php" method="post" enctype="multipart/form-data">
+			<div class="signup f-l">
+				<div class="form-group">
+					<input type="text" placeholder=" 名字" name="name">
+				</div>
+				<div class="form-group">
+				<div class="form-group">
+					<div class="signup-form">
+						<input type="text" placeholder="学号" name="number" class="email-mobile" onBlur="verify.verifyEmail(this)">
+					</div>
+				</div>
+				<div class="signup-email">	
+					<div class="form-group">
+						<input type="password" name="password" placeholder=" 密码（字母、数字，至少6位）" onBlur="verify.PasswordLenght(this)">
+						<span class="error-notic">密码长度不够</span>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password2" placeholder=" 确认密码" onBlur="verify.PasswordLenght(this)">
+						<span class="error-notic">密码长度不够</span>
+					</div>
+					<div class="form-group">
+						<input type="text" name="vcode" placeholder=" 请输入下方验证码" onBlur="verify.PasswordLenght(this)">
+						<br><br>
+
+						<img class="vcode" src="show_code.php"  onclick="this.src='show_code.php'"/>
+						<span class="error-notic"></span>
+					</div>
+					<div class="form-group">
+						<input type="submit" class="tran pr" name="submit">
+							<a href="javascript:;" class="tran"></a>
+							<img class="loading" src="images/loading.gif">
+						</input>
+					</div>
+					<p class="view-clause">点击注册，即同意我们的 <a href="#">用户隐私条款</a></p>
+				</div>
+				<!-- 注册 -->
+				
+				<div class="from-line"></div>
+				<div class="form-group">
+					<a href="javascript:;" class="move-login a-tag tran blue-border">已有帐号？登录<i class="iconfont tran">&#xe606;</i></a>
+				</div>
+			</div>
+
+			<!-- 注册 -->	
+		   </div>
+		</form>
+	</div>
+
+	<div style="height:80px;"></div>
+	
+	<div class="login-footer">
+		<p> 2019 Powered by <a href="http://www.17sucai.com/">青岛工学院</a> </p>
+	</div>
+	
+	
+</body>
+</html>
